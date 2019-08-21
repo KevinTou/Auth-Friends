@@ -9,10 +9,18 @@ import {
   ADD_FRIEND_START,
   ADD_FRIEND_SUCCESS,
   ADD_FRIEND_FAILURE,
+  UPDATE_FRIEND_START,
+  UPDATE_FRIEND_SUCCESS,
+  UPDATE_FRIEND_FAILURE,
+  SELECT_FRIEND,
+  DELETE_FRIEND_START,
+  DELETE_FRIEND_SUCCESS,
+  DELETE_FRIEND_FAILURE,
 } from '../actions';
 
 const initialState = {
   friends: [],
+  friend: null,
   isLoading: false,
   error: '',
   isLoggedIn: localStorage.getItem('token') ? true : false,
@@ -56,6 +64,7 @@ const reducers = (state = initialState, action) => {
         isLoading: false,
         error: '',
         friends: action.payload,
+        friend: null,
       };
     case GET_FRIENDS_FAILURE:
       return {
@@ -63,6 +72,7 @@ const reducers = (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
         friends: [],
+        friend: null,
       };
     case ADD_FRIEND_START:
       return {
@@ -78,6 +88,49 @@ const reducers = (state = initialState, action) => {
         friends: action.payload,
       };
     case ADD_FRIEND_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case UPDATE_FRIEND_START:
+      return {
+        ...state,
+        isLoading: true,
+        error: '',
+      };
+    case UPDATE_FRIEND_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: '',
+        friends: action.payload,
+      };
+    case UPDATE_FRIEND_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case SELECT_FRIEND:
+      return {
+        ...state,
+        friend: action.payload,
+      };
+    case DELETE_FRIEND_START:
+      return {
+        ...state,
+        isLoading: true,
+        error: '',
+      };
+    case DELETE_FRIEND_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: '',
+        friends: action.payload,
+      };
+    case DELETE_FRIEND_FAILURE:
       return {
         ...state,
         isLoading: false,

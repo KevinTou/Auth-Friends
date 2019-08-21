@@ -8,23 +8,30 @@ import FriendCard from './FriendCard';
 const FriendsList = props => {
   useEffect(() => {
     props.getFriends();
-  }, [props.friends]);
+  }, []);
 
   return (
     <div className="friends-list-container">
       <h1 className="friends-list-title">Friends List</h1>
-      <Table>
+      <Table responsive>
         <thead>
           <tr>
             <th>#</th>
             <th>Name</th>
             <th>Age</th>
             <th>Email</th>
+            <th>Update/Delete</th>
           </tr>
         </thead>
         <tbody>
           {props.friends.map(friend => {
-            return <FriendCard key={friend.id} friend={friend} />;
+            return (
+              <FriendCard
+                key={friend.id}
+                friend={friend}
+                history={props.history}
+              />
+            );
           })}
         </tbody>
       </Table>
@@ -35,6 +42,7 @@ const FriendsList = props => {
 const mapStateToProps = state => {
   return {
     friends: state.friends,
+    isLoggedIn: state.isLoggedIn,
   };
 };
 

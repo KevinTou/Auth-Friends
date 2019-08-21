@@ -17,8 +17,9 @@ const AddFriend = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-
-    props.addFriend(props, friend);
+    if (friend.name !== '' && friend.age !== '' && friend.email !== '') {
+      props.addFriend(props, friend);
+    }
   };
 
   return (

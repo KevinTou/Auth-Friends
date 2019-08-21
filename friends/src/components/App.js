@@ -8,7 +8,6 @@ import PrivateRoute from './Navigation/PrivateRoute';
 import FriendsList from './Friends/FriendsList';
 import AddFriend from './Friends/AddFriend';
 import UpdateFriend from './Friends/UpdateFriend';
-import DeleteFriend from './Friends/DeleteFriend';
 
 const App = () => {
   return (
@@ -19,7 +18,6 @@ const App = () => {
         <PrivateRoute path="/friends" component={FriendsList} />
         <PrivateRoute path="/addFriend" component={AddFriend} />
         <PrivateRoute path="/updateFriend" component={UpdateFriend} />
-        <PrivateRoute path="/deleteFriend" component={DeleteFriend} />
         <Redirect from="/" to="/friends" />
       </Switch>
     </BrowserRouter>
