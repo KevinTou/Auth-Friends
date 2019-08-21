@@ -22,8 +22,6 @@ export const login = (props, user) => dispatch => {
     .then(res => {
       dispatch({ type: LOGIN_SUCCESS });
       localStorage.setItem('token', res.data.payload);
-      // console.log('JWT Token', res.data.payload);
-      // Goes to friend's list if successful
       props.history.push('/friends');
     })
     .catch(err => {
@@ -37,7 +35,6 @@ export const getFriends = () => dispatch => {
   axiosWithAuth()
     .get('/friends')
     .then(res => {
-      // console.log(res.data);
       dispatch({ type: GET_FRIENDS_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -45,13 +42,14 @@ export const getFriends = () => dispatch => {
     });
 };
 
-export const addFriend = friend => dispatch => {
+export const addFriend = (props, friend) => dispatch => {
   dispatch({ type: ADD_FRIEND_START });
 
   axiosWithAuth()
     .post('/friends', friend)
     .then(res => {
       dispatch({ type: ADD_FRIEND_SUCCESS, payload: res.data });
+      props.history.push('/friends');
     })
     .catch(err => {
       dispatch({ type: ADD_FRIEND_FAILURE, payload: err.response });

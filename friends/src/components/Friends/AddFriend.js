@@ -18,8 +18,7 @@ const AddFriend = props => {
   const handleSubmit = event => {
     event.preventDefault();
 
-    // Dispatch action
-    props.addFriend(friend);
+    props.addFriend(props, friend);
   };
 
   return (
