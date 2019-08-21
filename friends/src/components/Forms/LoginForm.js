@@ -18,7 +18,6 @@ const LoginForm = props => {
   const handleSubmit = event => {
     event.preventDefault();
 
-    // Dispatch action
     props.login(props, user);
   };
 

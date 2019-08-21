@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 
 import NavigationBar from './Navigation/NavigationBar';
@@ -20,6 +20,7 @@ const App = () => {
         <PrivateRoute path="/addFriend" component={AddFriend} />
         <PrivateRoute path="/updateFriend" component={UpdateFriend} />
         <PrivateRoute path="/deleteFriend" component={DeleteFriend} />
+        <Redirect from="/" to="/friends" />
       </Switch>
     </BrowserRouter>
   );
