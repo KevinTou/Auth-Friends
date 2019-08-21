@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-// import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const GET_FRIENDS_START = 'GET_FRIENDS_START';
 export const GET_FRIENDS_SUCCESS = 'GET_FRIENDS_SUCCESS';
@@ -27,6 +28,11 @@ export const login = (props, user) => dispatch => {
     .catch(err => {
       dispatch({ type: LOGIN_FAILURE, payload: err.response });
     });
+};
+
+export const logout = props => {
+  localStorage.removeItem('token');
+  return { type: LOGOUT_USER };
 };
 
 export const getFriends = () => dispatch => {

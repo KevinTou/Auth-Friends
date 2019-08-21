@@ -2,6 +2,7 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  LOGOUT_USER,
   GET_FRIENDS_START,
   GET_FRIENDS_SUCCESS,
   GET_FRIENDS_FAILURE,
@@ -14,6 +15,7 @@ const initialState = {
   friends: [],
   isLoading: false,
   error: '',
+  isLoggedIn: localStorage.getItem('token') ? true : false,
 };
 
 const reducers = (state = initialState, action) => {
@@ -29,12 +31,18 @@ const reducers = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: '',
+        isLoggedIn: true,
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        isLoggedIn: false,
       };
     case GET_FRIENDS_START:
       return {

@@ -1,23 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../../actions';
 
 const NavigationBar = props => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setIsLoggedIn(true);
-    }
-  }, [isLoggedIn]);
-
-  // Re-factor into action creator
-  // Move state into redux!
-  const logout = () => {
-    localStorage.removeItem('token');
-    return <Redirect to="/login" />;
-  };
-
   return (
     <div>
       <Navbar color="light" light expand="md">
@@ -26,25 +13,17 @@ const NavigationBar = props => {
         </NavbarBrand>
 
         <Nav className="ml-auto" navbar>
-          {isLoggedIn ? (
+          {props.isLoggedIn ? (
             <>
               <NavItem>
                 <NavLink tag={Link} to="/addFriend">
                   Add Friend
                 </NavLink>
               </NavItem>
-              {/* <NavItem>
-                <NavLink tag={Link} to="/updateFriend">
-                  Update Friend
-                </NavLink>
-              </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/deleteFriend">
-                  Delete Friend
+                <NavLink tag={Link} to="/login" onClick={() => props.logout()}>
+                  Logout
                 </NavLink>
-              </NavItem> */}
-              <NavItem>
-                <NavLink onClick={() => logout()}>Logout</NavLink>
               </NavItem>
             </>
           ) : (
@@ -60,4 +39,13 @@ const NavigationBar = props => {
   );
 };
 
-export default NavigationBar;
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { logout },
+)(NavigationBar);
